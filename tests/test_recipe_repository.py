@@ -10,7 +10,6 @@ def test_get_all_records(db_connection): # See conftest.py to learn what `db_con
     repository = RecipeRepository(db_connection) # Create a new ArtistRepository
 
     recipes = repository.all() # Get all artists
-    print(recipes)
     # Assert on the results
     assert recipes == [
         Recipe(1, 'Fish and Chips', 20, 3),
@@ -19,3 +18,11 @@ def test_get_all_records(db_connection): # See conftest.py to learn what `db_con
         Recipe(4, 'Vegan Nut Roast', 30, 1),
         Recipe(5, 'Korean Fried Chicken and Rice', 25, 5),
     ]
+
+def test_find_recipe_method(db_connection):
+    db_connection.seed("seeds/recipes.sql")
+    repository = RecipeRepository(db_connection)
+    recipe = repository.find(1)
+    assert recipe == Recipe(1, 'Fish and Chips', 20, 3)
+
+
